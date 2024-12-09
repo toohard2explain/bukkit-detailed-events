@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "tv.niure.detailedevents"
-version = "1.0.12"
+version = "1.0.0"
 
 apply(plugin = "java")
 apply(plugin = "maven-publish")
