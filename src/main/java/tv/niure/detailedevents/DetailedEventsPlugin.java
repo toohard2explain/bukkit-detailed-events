@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import tv.niure.detailedevents.listeners.InventoryClickEventListener;
 import tv.niure.detailedevents.listeners.PlayerInteractEventListener;
 
 public class DetailedEventsPlugin extends JavaPlugin {
@@ -17,6 +18,7 @@ public class DetailedEventsPlugin extends JavaPlugin {
         super.onEnable();
         setInstance(this);
 
+        Bukkit.getPluginManager().registerEvents(new InventoryClickEventListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerInteractEventListener(), this);
     }
 
