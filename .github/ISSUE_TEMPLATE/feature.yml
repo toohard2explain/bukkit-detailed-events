@@ -1,0 +1,35 @@
+name: "💡 New Feature"
+description: Propose a new idea for detailed events.
+type: "Feature"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for submitting a feature request for Detailed events! Please be as detailed as possible to help us review and consider your request effectively.
+  - type: textarea
+    attributes:
+      label: Is your feature request related to a problem?
+      description: Please provide some context for this request. Why do you want it added?
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Describe the solution you'd like.
+      description: A clear and concise description of what you want.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Describe alternatives you've considered.
+      description: List any alternatives you might have tried to get the feature you want.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Other
+      description: Add any other context or screenshots about the feature request below.
+    validations:
+      required: false
