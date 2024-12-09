@@ -1,0 +1,6 @@
+name: DetailedEvents
+main: tv.niure.detailedevents.DetailedEventsPlugin
+version: 1.0.0
+api-version: 1.21
+author: Niure
+description: DetailedEvents library for Bukkit, more events, more details.
