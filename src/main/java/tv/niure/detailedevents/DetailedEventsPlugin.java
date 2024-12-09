@@ -24,5 +24,4 @@ public class DetailedEventsPlugin extends JavaPlugin {
     public void onDisable() {
         super.onDisable();
     }
-
 }
