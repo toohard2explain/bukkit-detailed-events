@@ -1,4 +1,4 @@
-package tv.niure.detailedevents.events;
+package tv.niure.detailedevents.events.block;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -11,12 +11,12 @@ import org.jetbrains.annotations.NotNull;
 
 @Getter
 @RequiredArgsConstructor
-public class PressurePlateTriggerEvent extends Event implements Cancellable {
+public class PlayerFarmlandDestroyEvent extends Event implements Cancellable {
     private static final HandlerList HANDLERS_LIST = new HandlerList();
     private boolean cancelled;
 
     private final Player player;
-    private final Block pressurePlate;
+    private final Block farmland;
 
     @Override
     public @NotNull HandlerList getHandlers() {

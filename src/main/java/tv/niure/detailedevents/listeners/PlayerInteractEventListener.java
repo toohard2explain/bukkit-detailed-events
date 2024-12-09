@@ -6,8 +6,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import tv.niure.detailedevents.events.FarmlandDestroyEvent;
-import tv.niure.detailedevents.events.PressurePlateTriggerEvent;
+import tv.niure.detailedevents.events.block.PlayerFarmlandDestroyEvent;
+import tv.niure.detailedevents.events.block.PlayerPressurePlateTriggerEvent;
+import tv.niure.detailedevents.events.item.PlayerLeftClickItemEvent;
+import tv.niure.detailedevents.events.item.PlayerRightClickItemEvent;
 
 import java.util.Optional;
 
@@ -15,8 +17,13 @@ public class PlayerInteractEventListener implements Listener {
 
     @EventHandler
     public void onEntityInteract(PlayerInteractEvent event) {
+        // Blocks
         handlePressurePlateTriggerEvent(event).ifPresent(event::setCancelled);
         handleFarmlandDestroyEvent(event).ifPresent(event::setCancelled);
+
+        // Items
+        handlePlayerRightClickItemEvent(event).ifPresent(event::setCancelled);
+        handlePlayerLeftClickItemEvent(event).ifPresent(event::setCancelled);
     }
 
     /**
@@ -30,7 +37,7 @@ public class PlayerInteractEventListener implements Listener {
         if (event.getClickedBlock() == null) return Optional.empty();
         if (!event.getClickedBlock().getType().name().contains("PRESSURE_PLATE")) return Optional.empty();
 
-        PressurePlateTriggerEvent newEvent = new PressurePlateTriggerEvent(event.getPlayer(), event.getClickedBlock());
+        PlayerPressurePlateTriggerEvent newEvent = new PlayerPressurePlateTriggerEvent(event.getPlayer(), event.getClickedBlock());
         Bukkit.getPluginManager().callEvent(newEvent);
 
         return Optional.of(newEvent.isCancelled());
@@ -47,7 +54,39 @@ public class PlayerInteractEventListener implements Listener {
         if (event.getClickedBlock() == null) return Optional.empty();
         if (event.getClickedBlock().getType() != Material.FARMLAND) return Optional.empty();
 
-        FarmlandDestroyEvent newEvent = new FarmlandDestroyEvent(event.getPlayer(), event.getClickedBlock());
+        PlayerFarmlandDestroyEvent newEvent = new PlayerFarmlandDestroyEvent(event.getPlayer(), event.getClickedBlock());
+        Bukkit.getPluginManager().callEvent(newEvent);
+
+        return Optional.of(newEvent.isCancelled());
+    }
+
+    /**
+     * Handle the player right click item event
+     *
+     * @param event The event
+     * @return Whether the event should be cancelled
+     */
+    private Optional<Boolean> handlePlayerRightClickItemEvent(PlayerInteractEvent event) {
+        if (!event.getAction().isRightClick()) return Optional.empty();
+        if (event.getItem() == null) return Optional.empty();
+
+        PlayerRightClickItemEvent newEvent = new PlayerRightClickItemEvent(event.getPlayer(), event.getItem());
+        Bukkit.getPluginManager().callEvent(newEvent);
+
+        return Optional.of(newEvent.isCancelled());
+    }
+
+    /**
+     * Handle the player left click item event
+     *
+     * @param event The event
+     * @return Whether the event should be cancelled
+     */
+    private Optional<Boolean> handlePlayerLeftClickItemEvent(PlayerInteractEvent event) {
+        if (!event.getAction().isLeftClick()) return Optional.empty();
+        if (event.getItem() == null) return Optional.empty();
+
+        PlayerLeftClickItemEvent newEvent = new PlayerLeftClickItemEvent(event.getPlayer(), event.getItem());
         Bukkit.getPluginManager().callEvent(newEvent);
 
         return Optional.of(newEvent.isCancelled());
