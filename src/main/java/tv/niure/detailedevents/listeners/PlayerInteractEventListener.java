@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import tv.niure.detailedevents.events.block.PlayerFarmlandDestroyEvent;
+import tv.niure.detailedevents.events.block.PlayerFarmlandTrampleEvent;
 import tv.niure.detailedevents.events.block.PlayerPressurePlateTriggerEvent;
 import tv.niure.detailedevents.events.item.PlayerLeftClickItemEvent;
 import tv.niure.detailedevents.events.item.PlayerRightClickItemEvent;
@@ -54,7 +54,7 @@ public class PlayerInteractEventListener implements Listener {
         if (event.getClickedBlock() == null) return Optional.empty();
         if (event.getClickedBlock().getType() != Material.FARMLAND) return Optional.empty();
 
-        PlayerFarmlandDestroyEvent newEvent = new PlayerFarmlandDestroyEvent(event.getPlayer(), event.getClickedBlock());
+        PlayerFarmlandTrampleEvent newEvent = new PlayerFarmlandTrampleEvent(event.getPlayer(), event.getClickedBlock());
         Bukkit.getPluginManager().callEvent(newEvent);
 
         return Optional.of(newEvent.isCancelled());
